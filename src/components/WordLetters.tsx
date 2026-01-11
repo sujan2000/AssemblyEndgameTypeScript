@@ -1,33 +1,32 @@
 
 import { clsx } from "clsx"
+import type { JSX } from "react"
 
+type WordLettersProps = {
+    currentWord: string
+    isGameLost: boolean
+    guessedLetters: string[]
+}
 
-export default function WordLetters(
-    {
-        currentWord,
-        isGameLost,
-        guessedLetters,
-
-    }
-) {
-
-
-    const letterElements = currentWord.split("").map((letter, index) => {
-        const shouldRevealLetter = isGameLost || guessedLetters.includes(letter)
-        const letterClassName = clsx(
-            isGameLost && !guessedLetters.includes(letter) && "missed-letter"
-        )
-        return (
-            <span key={index} className={letterClassName}>
-                {shouldRevealLetter ? letter.toUpperCase() : ""}
-            </span>
-        )
-    })
-
+export default function WordLetters({ currentWord, isGameLost, guessedLetters }: WordLettersProps): JSX.Element {
 
     return (
         <section className="word">
-            {letterElements}
+            {
+                currentWord.split("").map((letter: string, index: number): JSX.Element => {
+                    const shouldRevealLetter: boolean = isGameLost || guessedLetters.includes(letter)
+                    const letterClassName: string = clsx(
+                        isGameLost && !guessedLetters.includes(letter) && "missed-letter"
+                    )
+                    return (
+                        <span key={index} className={letterClassName}>
+                            {shouldRevealLetter ? letter.toUpperCase() : ""}
+                        </span>
+                    )
+                })
+
+            }
         </section>
     )
+
 }

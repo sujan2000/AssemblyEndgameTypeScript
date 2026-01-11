@@ -8,7 +8,7 @@ type KeyboardProps = {
     guessedLetters: string[],
     currentWord: string,
     isGameOver: boolean,
-    addGuessedLetter: void
+    addGuessedLetter: (letter: string) => void
 }
 
 export default function Keyboard(
@@ -36,7 +36,7 @@ export default function Keyboard(
                 disabled={isGameOver}
                 aria-disabled={guessedLetters.includes(letter)}
                 aria-label={`Letter ${letter}`}
-                onClick={(): void => addGuessedLetter(letter)}
+                onClick={() => addGuessedLetter(letter)}
             >
                 {letter.toUpperCase()}
             </button>
